@@ -84,34 +84,42 @@ class Button extends Widget{
     }
 
     //TODO: implement the onClick event using a callback passed as a parameter
-    onClick(/*TODO: add callback parameter*/):void{}
-
+    onClick(handler: { (event: EventArgs): void }):void{
+        this.backcolor = "#C9C9C9";
+        console.log("click");
+    }
     
     //TODO: give the states something to do! Use these methods to control the visual appearance of your
     //widget
     idleupState(): void {
-        throw new Error("Method not implemented.");
+        this.backcolor = "#FFFFFF";
+        this._input = "Spin around me to expand";
+        this.update();
     }
     idledownState(): void {
-        throw new Error("Method not implemented.");
+        this._fontSize = this._fontSize + 1;
+        this._input = "Click me to shrink";
+        this.update();
     }
     pressedState(): void {
-        throw new Error("Method not implemented.");
+        this.backcolor = "#C9C9C9";
+        this._fontSize = this._fontSize - 6;
+        this.update();
     }
     hoverState(): void {
-        throw new Error("Method not implemented.");
+        this.backcolor = "#D9D9D9";
     }
     hoverPressedState(): void {
-        throw new Error("Method not implemented.");
+        console.log("hover pressed");
     }
     pressedoutState(): void {
-        throw new Error("Method not implemented.");
+        console.log("pressed out");
     }
     moveState(): void {
-        throw new Error("Method not implemented.");
+        console.log("move");
     }
     keyupState(keyEvent?: KeyboardEvent): void {
-        throw new Error("Method not implemented.");
+        console.log("key up");
     }
 }
 
