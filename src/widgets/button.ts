@@ -11,7 +11,8 @@ class Button extends Widget{
     private _fontSize: number;
     private _text_y: number;
     private _text_x: number;
-    private defaultText: string= "Button";
+    private _callback: () => void;
+    private defaultText: string= ">:(";
     private defaultFontSize: number = 18;
     private defaultWidth: number = 80;
     private defaultHeight: number = 30;
@@ -76,51 +77,71 @@ class Button extends Widget{
         
         super.update();
     }
+
+    getText(): string {
+        return this._input;
+    }
+    
+    setText(text: string): void {
+        this._input = text;
+        this.update();
+    }
+
+    getHeight(): number {
+        return this.height;
+    }
+
+    setHeight(height: number): void {
+        this.height = height;
+    }
+
+    getWidth(): number {
+        return this.width;
+    }
+
+    setWidth(width: number): void {
+        this.width = width;
+    }
     
     pressReleaseState(): void{
 
         if (this.previousState instanceof PressedWidgetState)
             this.raise(new EventArgs(this));
+        if (this._callback) {
+            this._callback();
+        }
     }
 
     //TODO: implement the onClick event using a callback passed as a parameter
-    onClick(handler: { (event: EventArgs): void }):void{
-        this.backcolor = "#C9C9C9";
-        console.log("click");
+    onClick(callback: () => void):void{
+        this._callback = callback;
     }
     
     //TODO: give the states something to do! Use these methods to control the visual appearance of your
     //widget
     idleupState(): void {
-        this.backcolor = "#FFFFFF";
-        this._input = "Spin around me to expand";
-        this.update();
+        this.backcolor = "#FFA4A4";
+        this.setText(">:(");
     }
-    idledownState(): void {
-        this._fontSize = this._fontSize + 1;
-        this._input = "Click me to shrink";
-        this.update();
-    }
+    idledownState(): void {}
     pressedState(): void {
-        this.backcolor = "#C9C9C9";
-        this._fontSize = this._fontSize - 6;
-        this.update();
+        this.backcolor = "#A4FFA4";
+        this.setText(":)");
     }
     hoverState(): void {
-        this.backcolor = "#D9D9D9";
+        this.backcolor = "#A4A4FF";
+        this.setText(":I");
     }
     hoverPressedState(): void {
-        console.log("hover pressed");
+        this.backcolor = "#A4A4FF";
+        this.setText(":I");
     }
     pressedoutState(): void {
-        console.log("pressed out");
+        this.backcolor = "#FFA4A4";
+        this.setText(">:(");
     }
-    moveState(): void {
-        console.log("move");
-    }
-    keyupState(keyEvent?: KeyboardEvent): void {
-        console.log("key up");
-    }
+    moveState(): void {}
+    keyupState(keyEvent?: KeyboardEvent): void {}
 }
 
 export {Button}

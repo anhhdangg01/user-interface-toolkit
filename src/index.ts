@@ -15,5 +15,9 @@ let btn = new Button(w);
 btn.tabindex = 2;
 btn.fontSize = 14;
 btn.move(12, 50);
-let clickAction = function() {};
+btn.backcolor = "#FFA4A4";
+let clickAction = function() {
+    lbl1.text = "Congrats, you clicked the button!";
+    console.log(":D");
+};
 btn.onClick(clickAction);
