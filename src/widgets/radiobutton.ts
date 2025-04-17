@@ -1,29 +1,45 @@
 // importing local code, code we have written
-import {Window, Widget, RoleType} from "../core/ui";
+import {IdleUpWidgetState, PressedWidgetState} from "../core/ui";
+import {Window, Widget, RoleType, EventArgs} from "../core/ui";
 // importing code from SVG.js library
-import {Rect} from "../core/ui";
+import {Circle, Text} from "../core/ui";
 
 class RadioButton extends Widget{
-    private _rect: Rect;
+    private _choices: Circle[];
+    private _text: Text;
+    private _input: string;
+    private _fontSize: number;
+    private _text_y: number;
+    private _text_x: number;
+    private _isChecked: boolean;
+    private _callback: () => void;
     private defaultWidth: number = 80;
     private defaultHeight: number = 30;
+    private defaultFontSize: number = 18;
+    private defaultText: string = "Radio Button";
+    private defaultCheckState = false;
 
     constructor(parent:Window){
         super(parent);
         // set defaults
         this.height = this.defaultHeight;
         this.width = this.defaultWidth;
+        this._input = this.defaultText;
+        this._fontSize = this.defaultFontSize;
+        this._isChecked = this.defaultCheckState;
+
         // set Aria role
-        this.role = RoleType.none;
+        this.role = RoleType.radiobutton;
         //TODO:
         // set default state!
-
+        this.setState(new IdleUpWidgetState());
         // render widget
         this.render();
     }
 
     render(): void {
         this._group = (this.parent as Window).window.group();
+        
         // Set the outer svg element 
         this.outerSvg = this._group;
         // Add a transparent rect on top of text to prevent selection cursor
@@ -36,35 +52,27 @@ class RadioButton extends Widget{
         this.registerEvent(this.outerSvg);
     }
 
+    onClick(callback: () => void):void{
+        this._callback = callback;
+    }
+
     //TODO: give the states something to do! Use these methods to control the visual appearance of your
     //widget
-    idleupState(): void {
-        throw new Error("Method not implemented.");
-    }
-    idledownState(): void {
-        throw new Error("Method not implemented.");
-    }
-    pressedState(): void {
-        throw new Error("Method not implemented.");
-    }
+    idleupState(): void {}
+    idledownState(): void {}
+    pressedState(): void {}
     pressReleaseState(): void {
-        throw new Error("Method not implemented.");
+        if (this.previousState instanceof PressedWidgetState)
+            this.raise(new EventArgs(this));
+        if (this._callback) {
+            this._callback();
+        }
     }
-    hoverState(): void {
-        throw new Error("Method not implemented.");
-    }
-    hoverPressedState(): void {
-        throw new Error("Method not implemented.");
-    }
-    pressedoutState(): void {
-        throw new Error("Method not implemented.");
-    }
-    moveState(): void {
-        throw new Error("Method not implemented.");
-    }
-    keyupState(): void {
-        throw new Error("Method not implemented.");
-    }
+    hoverState(): void {}
+    hoverPressedState(): void {}
+    pressedoutState(): void {}
+    moveState(): void {}
+    keyupState(): void {}
 }
 
 export {RadioButton}
