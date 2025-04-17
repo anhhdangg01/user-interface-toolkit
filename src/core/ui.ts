@@ -7,6 +7,9 @@ enum RoleType {
     none = "none",
     scrollbar = "scrollbar",
     window = "window",
+    checkbox = "checkbox",
+    progressbar = "progressbar",
+    radiobutton = "radiobutton",
 }
 
 interface IAccessibility {
