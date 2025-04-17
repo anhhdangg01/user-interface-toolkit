@@ -21,3 +21,9 @@ let clickAction = function() {
     console.log(":D");
 };
 btn.onClick(clickAction);
+
+let lbl2 = new Heading(w);
+lbl2.text = "Click this check box";
+lbl2.tabindex = 1;
+lbl2.fontSize = 16;
+lbl2.move(10,20);
