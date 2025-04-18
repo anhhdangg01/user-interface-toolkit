@@ -62,9 +62,7 @@ lbl3.move(10, 180);
 
 let radio = new RadioButton(w);
 radio.tabindex = 2;
-radio.fontSize = 14;
 radio.move(10, 210);
-let radioSelectAction = function () {
-    console.log("radio button clicked");
-};
-radio.onClick(radioSelectAction);
+radio.onClick((args, index) => {
+    console.log("Radio button that was clicked: ");
+});
