@@ -1,8 +1,9 @@
 import {Window} from "./core/ui"
 import {Button} from "./widgets/button"
-import { CheckBox } from "./widgets/checkbox";
+import {CheckBox} from "./widgets/checkbox";
 import {Heading} from "./widgets/heading"
-import { RadioButton } from "./widgets/radiobutton";
+import {RadioButton} from "./widgets/radiobutton";
+import {Custom} from "./widgets/custom";
 
 
 let w = new Window(window.innerHeight-10,'100%');
@@ -66,3 +67,17 @@ radio.move(10, 210);
 radio.onClick((args, index) => {
     console.log("Radio button that was clicked: ");
 });
+
+//custom
+let lbl5 = new Heading(w);
+lbl5.text = "Foster this circle and make it happy :)";
+lbl5.tabindex = 1;
+lbl5.fontSize = 16;
+lbl5.move(10, 280);
+
+let custom = new Custom(w);
+custom.tabindex = 2;
+custom.move(10, 310);
+custom.onClick((args) => {
+    console.log("circle grew");
+})
