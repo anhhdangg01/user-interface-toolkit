@@ -1,6 +1,6 @@
 // importing local code, code we have written
 import {IdleUpWidgetState, PressedWidgetState} from "../core/ui";
-import {Window, Widget, RoleType} from "../core/ui";
+import {Window, Widget, RoleType, EventArgs} from "../core/ui";
 // importing code from SVG.js library
 import {Rect, Text, Box} from "../core/ui";
 
@@ -11,10 +11,13 @@ class CheckBox extends Widget{
     private _text_y: number;
     private _text_x: number;
     private _text: Text;
+    private _callback: () => void;
+    private _isChecked: boolean;
     private defaultWidth: number = 30;
     private defaultHeight: number = 30;
     private defaultText: string = "You are happy";
     private defaultFontSize: number = 18;
+    private _defaultCheckState: boolean = false;
 
     constructor(parent:Window){
         super(parent);
@@ -23,13 +26,11 @@ class CheckBox extends Widget{
         this.width = this.defaultWidth;
         this._input = this.defaultText;
         this._fontSize = this.defaultFontSize;
+        this._isChecked = this._defaultCheckState;
         // set Aria role
         this.role = RoleType.none;
         // render widget
-        //TODO:
-        // set default state!
         this.setState(new IdleUpWidgetState());
-        // render widget
         this.render();
     }
 
@@ -42,7 +43,7 @@ class CheckBox extends Widget{
         let box:Box = this._text.bbox();
         // in TS, the prepending with + performs a type conversion from string to number
         this._text_y = (+this._rect.y() + ((+this._rect.height()/2)) - (box.height/2));
-        this._text.x(+this._rect.x() + 4);
+        this._text.x(+this._rect.x() + 40);
         if (this._text_y > 0){
             this._text.y(this._text_y);
         }
@@ -50,16 +51,15 @@ class CheckBox extends Widget{
 
     render(): void {
         this._group = (this.parent as Window).window.group();
+        this._rect = this._group.rect(this.width, this.height);
+        this._rect.stroke("black");
+        this._text = this._group.text(this._input);
+        
+        let eventrect = this._group.rect(this.width, this.height).opacity(0).attr('id', 0);
+        this.registerEvent(eventrect);
+
         // Set the outer svg element 
         this.outerSvg = this._group;
-        // Add a transparent rect on top of text to prevent selection cursor
-        this._group.rect(this.width, this.height).opacity(0).attr('id', 0);
-
-        this.backcolor = "silver";
-        // register objects that should receive event notifications.
-        // for this widget, we want to know when the group or rect objects
-        // receive events
-        this.registerEvent(this.outerSvg);
     }
 
     override update(): void {
@@ -67,39 +67,44 @@ class CheckBox extends Widget{
             this._text.font('size', this._fontSize);
             this._text.text(this._input);
             this.positionText();
+
+        if(this._rect != null)
+            this._rect.fill(this.backcolor);
         
         super.update();
     }
 
+    set text(text: string) {
+        this._input = text;
+        this.update();
+    }
+
+    get isChecked(): boolean {
+        return this._isChecked;
+    }
+
+    //TODO: implement the onClick event using a callback passed as a parameter
+    onClick(callback: () => void):void{
+        this._callback = callback;
+    }
+
     //TODO: give the states something to do! Use these methods to control the visual appearance of your
     //widget
-    idleupState(): void {
-        throw new Error("Method not implemented.");
+    idleupState(): void {}
+    idledownState(): void {}
+    pressedState(): void {}
+    pressReleaseState(): void{
+        if (this.previousState instanceof PressedWidgetState)
+            this.raise(new EventArgs(this));
+        if (this._callback) {
+            this._callback();
+        }
     }
-    idledownState(): void {
-        throw new Error("Method not implemented.");
-    }
-    pressedState(): void {
-        throw new Error("Method not implemented.");
-    }
-    pressReleaseState(): void {
-        throw new Error("Method not implemented.");
-    }
-    hoverState(): void {
-        throw new Error("Method not implemented.");
-    }
-    hoverPressedState(): void {
-        throw new Error("Method not implemented.");
-    }
-    pressedoutState(): void {
-        throw new Error("Method not implemented.");
-    }
-    moveState(): void {
-        throw new Error("Method not implemented.");
-    }
-    keyupState(): void {
-        throw new Error("Method not implemented.");
-    }
+    hoverState(): void {}
+    hoverPressedState(): void {}
+    pressedoutState(): void {}
+    moveState(): void {}
+    keyupState(): void {}
 }
 
 export {CheckBox}
