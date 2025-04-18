@@ -76,7 +76,7 @@ class RadioButton extends Widget{
         }
         this._choices[index].fill("#C9C9C9");
         this._chosenIndex = index;
-        this.raise(new EventArgs(this, null, this._chosenIndex))
+        this.raise(new EventArgs(this, null, this._chosenIndex));
     }
 
     set text(text: string) {
