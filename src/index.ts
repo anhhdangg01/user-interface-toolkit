@@ -4,6 +4,8 @@ import {CheckBox} from "./widgets/checkbox";
 import {Heading} from "./widgets/heading"
 import {RadioButton} from "./widgets/radiobutton";
 import {Custom} from "./widgets/custom";
+import { ProgressBar } from "./widgets/progressbar";
+import { ScrollBar } from "./widgets/scrollbar";
 
 
 let w = new Window(window.innerHeight-10,'100%');
@@ -68,16 +70,40 @@ radio.onClick((args, index) => {
     console.log("Radio button that was clicked: ");
 });
 
-//custom
+//scroll bar
+let lbl4 = new Heading(w);
+lbl4.text = "Scroll up or down";
+lbl4.tabindex = 1;
+lbl4.fontSize = 16;
+lbl4.move(10, 280);
+
+//progress bar
 let lbl5 = new Heading(w);
-lbl5.text = "Foster this circle and make it happy :)";
+lbl5.text = "Click the progress bar to progress it";
 lbl5.tabindex = 1;
 lbl5.fontSize = 16;
-lbl5.move(10, 280);
+lbl5.move(10, 460);
+
+let progressbar = new ProgressBar(w);
+progressbar.tabindex = 2;
+progressbar.move(10, 490);
+progressbar.onClick((args) => {
+    console.log("Widget state changed");
+    if (progressbar.barWidth == 100) {
+        lbl5.text = "Progress bar filled!";
+    }
+})
+
+//custom
+let lbl6 = new Heading(w);
+lbl6.text = "Foster this circle and make it happy :)";
+lbl6.tabindex = 1;
+lbl6.fontSize = 16;
+lbl6.move(10, 610);
 
 let custom = new Custom(w);
 custom.tabindex = 2;
-custom.move(10, 310);
+custom.move(10, 440);
 custom.onClick((args) => {
     console.log("circle grew");
 })

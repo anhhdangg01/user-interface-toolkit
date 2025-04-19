@@ -14,7 +14,7 @@ class ScrollBar extends Widget{
         this.height = this.defaultHeight;
         this.width = this.defaultWidth;
         // set Aria role
-        this.role = RoleType.none;
+        this.role = RoleType.scrollbar;
         //TODO:
         // set default state!
 
@@ -38,33 +38,15 @@ class ScrollBar extends Widget{
 
     //TODO: give the states something to do! Use these methods to control the visual appearance of your
     //widget
-    idleupState(): void {
-        throw new Error("Method not implemented.");
-    }
-    idledownState(): void {
-        throw new Error("Method not implemented.");
-    }
-    pressedState(): void {
-        throw new Error("Method not implemented.");
-    }
-    pressReleaseState(): void {
-        throw new Error("Method not implemented.");
-    }
-    hoverState(): void {
-        throw new Error("Method not implemented.");
-    }
-    hoverPressedState(): void {
-        throw new Error("Method not implemented.");
-    }
-    pressedoutState(): void {
-        throw new Error("Method not implemented.");
-    }
-    moveState(): void {
-        throw new Error("Method not implemented.");
-    }
-    keyupState(): void {
-        throw new Error("Method not implemented.");
-    }
+    idleupState(): void {}
+    idledownState(): void {}
+    pressedState(): void {}
+    pressReleaseState(): void {}
+    hoverState(): void {}
+    hoverPressedState(): void {}
+    pressedoutState(): void {}
+    moveState(): void {}
+    keyupState(): void {}
 }
 
 export {ScrollBar}
