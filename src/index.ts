@@ -72,21 +72,29 @@ radio.onClick((args, index) => {
 
 //scroll bar
 let lbl4 = new Heading(w);
-lbl4.text = "Scroll up or down";
+lbl4.text = "Scroll on this scroll bar";
 lbl4.tabindex = 1;
 lbl4.fontSize = 16;
 lbl4.move(10, 280);
+
+let scrollbar = new ScrollBar(w);
+scrollbar.tabindex = 2;
+scrollbar.setHeight = 200;
+scrollbar.move(100, 310);
+scrollbar.onScroll((args) => {
+    console.log("Thumb moved");
+});
 
 //progress bar
 let lbl5 = new Heading(w);
 lbl5.text = "Click the progress bar to progress it";
 lbl5.tabindex = 1;
 lbl5.fontSize = 16;
-lbl5.move(10, 460);
+lbl5.move(10, 520);
 
 let progressbar = new ProgressBar(w);
 progressbar.tabindex = 2;
-progressbar.move(10, 490);
+progressbar.move(10, 550);
 progressbar.onClick((args) => {
     console.log("Widget state changed");
 })
