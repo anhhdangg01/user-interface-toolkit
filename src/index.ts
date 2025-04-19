@@ -89,9 +89,6 @@ progressbar.tabindex = 2;
 progressbar.move(10, 490);
 progressbar.onClick((args) => {
     console.log("Widget state changed");
-    if (progressbar.barWidth == 100) {
-        lbl5.text = "Progress bar filled!";
-    }
 })
 
 //custom
