@@ -4,8 +4,8 @@ import {CheckBox} from "./widgets/checkbox";
 import {Heading} from "./widgets/heading"
 import {RadioButton} from "./widgets/radiobutton";
 import {Custom} from "./widgets/custom";
-import { ProgressBar } from "./widgets/progressbar";
-import { ScrollBar } from "./widgets/scrollbar";
+import {ProgressBar} from "./widgets/progressbar";
+import {ScrollBar} from "./widgets/scrollbar";
 
 
 let w = new Window(window.innerHeight-10,'100%');
@@ -41,7 +41,7 @@ checkbox.fontSize = 14;
 checkbox.move(12, 130);
 checkbox.backcolor = "#FFFFFF";
 let checkboxAction = function () {
-    console.log("box checked");
+    console.log("Check box state has changed");
     // check the box if unchecked
     if (checkbox.isChecked == false) {
         this.backcolor = "#8BE8A4";
@@ -67,7 +67,7 @@ let radio = new RadioButton(w);
 radio.tabindex = 2;
 radio.move(10, 210);
 radio.onClick((args, index) => {
-    console.log("Radio button that was clicked: ");
+    console.log("Radio button that was clicked and changed state to: ");
 });
 
 //scroll bar
@@ -110,5 +110,5 @@ let custom = new Custom(w);
 custom.tabindex = 2;
 custom.move(10, 440);
 custom.onClick((args) => {
-    console.log("circle grew");
+    console.log("Circle grew");
 })

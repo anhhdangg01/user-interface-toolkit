@@ -54,6 +54,7 @@ class ProgressBar extends Widget{
 
     override update(): void {
         if(this._rect != null)
+            this._border.size(this._maxValue + 1, this.height + 1);
             this._rect.size(this._currentValue, this.height);
             this._rect.fill(this.backcolor);
 
@@ -63,6 +64,7 @@ class ProgressBar extends Widget{
     set setWidth(width: number) {
         this.width = width;
         this._maxValue = width;
+        this.update();
     }
 
     set setIncrement(value: number) {
@@ -78,7 +80,7 @@ class ProgressBar extends Widget{
             return;
         }
         console.log("Progress bar incremented");
-        this._currentValue += this._incrementValue;
+        this._currentValue += this._maxValue / this._incrementValue;
         if (this._currentValue < this._minValue) {
             this._currentValue = this._minValue;
         }
